@@ -1,0 +1,15 @@
+# Build output
+build/
+cmake-build*/
+
+# Editor settings
+.vscode/
+.idea/
+
+# macOS junk
+.DS_Store
+
+# Compiled files
+*.o
+*.out
+*.exe
