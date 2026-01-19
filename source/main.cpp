@@ -7,7 +7,7 @@
 #include <cmath>
 #include <map>
 #include <string>
-
+#include "../sounds/audio.h"
 struct vec2
 {
     float x, y;
@@ -262,6 +262,7 @@ int main()
     glBindVertexArray(0);
 
     InitGame();
+    Audio::Init();
     auto lastTime = std::chrono::high_resolution_clock::now();
     while (!glfwWindowShouldClose(window))
     {
@@ -271,6 +272,7 @@ int main()
 
         glfwPollEvents();
         UpdateGame(deltaTime);
+        Audio::Update(gameStarted, gameOver);
         RenderGame(window);
     }
 
@@ -279,6 +281,7 @@ int main()
     glDeleteProgram(shaderProgram);
 
     glfwTerminate();
+    Audio::Shutdown();
     return 0;
 }
 
@@ -335,7 +338,7 @@ void UpdateGame(float deltaTime)
             {
                 score += 10;
                 SpawnFruit();
-
+                Audio::PlayEat();
                 if (score % 50 == 0 && snakeSpeed > 0.05f)
                 {
                     snakeSpeed -= 0.01f;
